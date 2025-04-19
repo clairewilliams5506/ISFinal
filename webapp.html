@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Emoji Mood Matcher 😊</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f8ffae, #43c6ac);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px;
+      color: #333;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 1em;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+    }
+
+    input {
+      width: 250px;
+    }
+
+    button {
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+
+    .result {
+      font-size: 2.5em;
+      margin-top: 20px;
+    }
+
+    .footer {
+      margin-top: 60px;
+      font-size: 0.8em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>Emoji Mood Matcher</h1>
+  <p>Type how you're feeling and get a matching emoji!</p>
+  <input type="text" id="moodInput" placeholder="e.g., happy, tired, stressed" />
+  <button onclick="matchMood()">Get Emoji</button>
+  <div class="result" id="result"></div>
+
+  <div class="footer">Created with 💡 + 🤖 + 😄</div>
+
+  <script>
+    const moodMap = {
+      happy: ['😄', '😊', '😃', '😁', '😸'],
+      sad: ['😢', '😞', '😿', '😭'],
+      tired: ['😴', '🥱', '😪'],
+      stressed: ['😰', '😩', '😓', '🤯'],
+      angry: ['😠', '😡', '👿'],
+      love: ['❤️', '😍', '💖', '😘'],
+      excited: ['🤩', '😆', '🎉', '🥳'],
+      bored: ['😐', '🙄', '😴'],
+      scared: ['😱', '😨', '👻'],
+      confused: ['😕', '🤔', '😵‍💫']
+    };
+
+    function matchMood() {
+      const input = document.getElementById('moodInput').value.toLowerCase();
+      let found = false;
+      let emojis = [];
+
+      for (let key in moodMap) {
+        if (input.includes(key)) {
+          emojis = moodMap[key];
+          found = true;
+          break;
+        }
+      }
+
+      const resultDiv = document.getElementById('result');
+      if (found) {
+        const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+        resultDiv.innerText = `Your mood emoji: ${emoji}`;
+      } else if (input.trim() === '') {
+        resultDiv.innerText = 'Please enter a mood!';
+      } else {
+        resultDiv.innerText = 'Hmm... I don’t know that mood yet 🤔';
+      }
+    }
+  </script>
+</body>
+</html>
